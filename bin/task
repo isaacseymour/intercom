@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require_relative '../app.rb'
+
+EARTH_RADIUS = 6371
+
+task = Task.with(
+  radius: EARTH_RADIUS,
+  max_distance: 100,
+  central_point: SpherePoint.with(latitude: 53.339428, longitude: -6.257664)
+)
+
+infile, outfile = ARGV
+result = task.call(infile)
+
+outio = outfile ? File.open(outfile, 'w') : STDOUT
+outio.write(result.join("\n"))
+outio.close
