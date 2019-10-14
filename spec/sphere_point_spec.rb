@@ -26,4 +26,22 @@ RSpec.describe SpherePoint do
     expect(point.distance(other_point, radius: 100))
       .to be_within(1e-10).of(0.00709243930982)
   end
+
+  london = [51.5258643, -0.0849004]
+  dublin = [53.339428, -6.257664]
+  sf = [37.788802, -122.4025067]
+  [
+    [*london, *london, 0],
+    [*london, *dublin, 464],
+    [*london, *sf, 8614],
+    [*dublin, *sf, 8175]
+  ]
+    .each do |(lat1, lng1, lat2, lng2, distance)|
+    specify do
+      point1 = described_class.with(latitude: lat1, longitude: lng1)
+      point2 = described_class.with(latitude: lat2, longitude: lng2)
+      expect(point1.distance(point2, radius: 6371)).to be_within(1).of(distance)
+      expect(point2.distance(point1, radius: 6371)).to be_within(1).of(distance)
+    end
+  end
 end
