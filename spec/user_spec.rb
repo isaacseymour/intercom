@@ -5,7 +5,7 @@ RSpec.describe User do
     File.join(File.dirname(__FILE__), 'fixtures', 'users.json')
   end
   let(:fixture) { File.open(fixture_path) }
-  let(:line) { fixture.lines.first }
+  let(:line) { fixture.each_line.first }
 
   describe '.parse' do
     it 'parses it from JSON' do

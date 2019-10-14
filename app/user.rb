@@ -4,7 +4,7 @@ require 'json'
 
 User = Value.new(:id, :name, :location) do
   def self.parse_all(file)
-    file.lines.lazy.reject(&:empty?).map { |line| parse(line) }
+    file.each_line.lazy.reject(&:empty?).map { |line| parse(line) }
   end
 
   def self.parse(string)
