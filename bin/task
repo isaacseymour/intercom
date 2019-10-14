@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../app.rb'
 
@@ -11,9 +12,9 @@ task = Task.with(
 )
 
 input_path, output_path = ARGV
-if input_path.nil? || input_path == "--help"
-  puts "Please pass the input file path as the first argument."
-  puts "You can optionally pass an output file as the second argument,"
+if input_path.nil? || input_path == '--help'
+  puts 'Please pass the input file path as the first argument.'
+  puts 'You can optionally pass an output file as the second argument,'
   puts "if not, I'll just print out the results!"
   exit 1
 end
