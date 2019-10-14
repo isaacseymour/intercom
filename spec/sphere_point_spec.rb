@@ -4,6 +4,9 @@ RSpec.describe SpherePoint do
   subject(:point) do
     described_class.with(latitude: 51.5258643, longitude: -0.0849004)
   end
+  let(:other_point) do
+    described_class.with(latitude: 51.526042, longitude: -0.0914257)
+  end
 
   it 'converts degrees to radians' do
     # Results here taken from Googling degrees-to-radians.
@@ -13,12 +16,14 @@ RSpec.describe SpherePoint do
   end
 
   it 'calculates the central angle' do
-    other_point = described_class.with(latitude: 51.526042,
-                                       longitude: -0.0914257)
-
     # Result here taken from
     # https://www.vcalc.com/wiki/MichaelBartmess/Great+Circle+Central+Angle
     expect(point.central_angle(other_point))
       .to be_within(1e-10).of(0.0000709243930982)
+  end
+
+  it 'calculates the distance in km' do
+    expect(point.distance(other_point, radius: 100))
+      .to be_within(1e-10).of(0.00709243930982)
   end
 end

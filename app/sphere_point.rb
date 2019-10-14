@@ -2,7 +2,7 @@
 
 require 'values'
 
-SpherePoint = Value.new(:latitude, :longitude) do
+class SpherePoint < Value.new(:latitude, :longitude)
   def latitude_radians
     degrees_to_rad(latitude)
   end
@@ -18,6 +18,10 @@ SpherePoint = Value.new(:latitude, :longitude) do
       sin_latitudes(other) +
       (cos_latitudes(other) * cos_longitude_diff(other))
     )
+  end
+
+  def distance(other, radius:)
+    central_angle(other) * radius
   end
 
   private
