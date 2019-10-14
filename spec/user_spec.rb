@@ -2,14 +2,24 @@
 
 RSpec.describe User do
   let(:fixture) do
-    File.read(File.join(File.dirname(__FILE__), 'fixtures', 'user.json'))
+    File.read(File.join(File.dirname(__FILE__), 'fixtures', 'users.json'))
+  end
+  let(:line) { fixture.lines.first }
+
+  describe '.parse' do
+    it 'parses it from JSON' do
+      expect(described_class.parse(line)).to have_attributes(
+        location: have_attributes(latitude: 52.986375, longitude: -6.043701),
+        id: 12,
+        name: 'Christina McArdle'
+      )
+    end
   end
 
-  it 'parses it from JSON' do
-    expect(described_class.parse(fixture)).to have_attributes(
-      location: have_attributes(latitude: 52.986375, longitude: -6.043701),
-      id: 12,
-      name: 'Christina McArdle'
-    )
+  describe '.parse_all' do
+    it 'parses all the lines' do
+      result = described_class.parse_all(fixture)
+      expect(result.count).to eq(32)
+    end
   end
 end

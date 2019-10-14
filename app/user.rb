@@ -3,6 +3,10 @@
 require 'json'
 
 User = Value.new(:id, :name, :location) do
+  def self.parse_all(string)
+    string.lines.reject(&:empty?).map { |line| parse(line) }
+  end
+
   def self.parse(string)
     hash = JSON.parse(string).transform_keys(&:to_sym)
 
