@@ -11,7 +11,7 @@ RSpec.describe Task do
     )
 
     path = File.join(File.dirname(__FILE__), 'fixtures', 'users.json')
-    result = task.call(path)
+    result = task.call(File.open(path))
 
     expect(result.count).to eq(16)
   end
