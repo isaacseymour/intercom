@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe User do
-  let(:fixture) do
-    File.read(File.join(File.dirname(__FILE__), 'fixtures', 'users.json'))
+  let(:fixture_path) do
+    File.join(File.dirname(__FILE__), 'fixtures', 'users.json')
   end
+  let(:fixture) { File.open(fixture_path) }
   let(:line) { fixture.lines.first }
 
   describe '.parse' do

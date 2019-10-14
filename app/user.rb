@@ -3,8 +3,8 @@
 require 'json'
 
 User = Value.new(:id, :name, :location) do
-  def self.parse_all(string)
-    string.lines.reject(&:empty?).map { |line| parse(line) }
+  def self.parse_all(file)
+    file.lines.lazy.reject(&:empty?).map { |line| parse(line) }
   end
 
   def self.parse(string)
