@@ -10,16 +10,18 @@ task = Task.with(
   central_point: SpherePoint.with(latitude: 53.339428, longitude: -6.257664)
 )
 
-infile, outfile = ARGV
-if infile.nil? || infile == "--help"
+input_path, output_path = ARGV
+if input_path.nil? || input_path == "--help"
   puts "Please pass the input file path as the first argument."
   puts "You can optionally pass an output file as the second argument,"
   puts "if not, I'll just print out the results!"
   exit 1
 end
 
-result = task.call(infile)
+input_io = input_path == '-' ? STDIN : File.open(input_path)
 
-outio = outfile ? File.open(outfile, 'w') : STDOUT
-outio.write(result.join("\n"))
-outio.close
+result = task.call(input_io)
+
+output_io = output_path ? File.open(output_path, 'w') : STDOUT
+output_io.write(result.join("\n"))
+output_io.close
