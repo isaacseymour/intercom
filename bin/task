@@ -11,6 +11,13 @@ task = Task.with(
 )
 
 infile, outfile = ARGV
+if infile.nil? || infile == "--help"
+  puts "Please pass the input file path as the first argument."
+  puts "You can optionally pass an output file as the second argument,"
+  puts "if not, I'll just print out the results!"
+  exit 1
+end
+
 result = task.call(infile)
 
 outio = outfile ? File.open(outfile, 'w') : STDOUT
